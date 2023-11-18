@@ -1,0 +1,6 @@
+{
+  "alpha": {"_type": "choice", "_value": [10,30,50,70,90,100]},
+  "learning_rate":{"_type": "choice", "_value": [1e-3,1e-4,1e-5]},
+  "z_dim": {"_type": "choice", "_value": [32,64,128,256]},
+  "h_dim": {"_type": "choice", "_value": [32,64,128,256]}
+}
