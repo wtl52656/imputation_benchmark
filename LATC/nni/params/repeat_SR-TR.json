@@ -1,0 +1,6 @@
+{
+    "combine_params": {
+        "_type": "choice",
+        "_value": [{"c":0.2, "theta":20},{"c":0.2, "theta":20},{"c":0.2, "theta":20},{"c":0.2, "theta":20},{"c":0.2, "theta":20}]
+    }
+}
