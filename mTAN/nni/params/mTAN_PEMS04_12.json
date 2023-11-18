@@ -1,0 +1,6 @@
+{
+  "rec_hidden": {"_type": "choice", "_value": [32,64,128]},
+  "gen-hidden": {"_type": "choice", "_value": [32,64,128]},
+  "enc-num-heads": {"_type": "choice", "_value": [1,2,4]},
+  "dec-num-heads": {"_type": "choice", "_value": [1,2,4]}
+}

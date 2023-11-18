@@ -1,0 +1,6 @@
+{
+  "embed_dim": {"_type": "choice", "_value": [2,4,8,10,16]},
+  "rnn_units":{"_type": "choice", "_value": [32,64,128]},
+  "num_layers": {"_type": "choice", "_value": [1,2,4]},
+  "cheb_order": {"_type": "choice", "_value": [1,2,4]}
+}

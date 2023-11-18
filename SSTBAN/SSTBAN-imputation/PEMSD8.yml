@@ -1,0 +1,17 @@
+experimentName: SSTBAN_PEMSD8
+trialConcurrency: 1
+maxExecDuration: 100h
+maxTrialNum: 128
+trainingServicePlatform: local
+searchSpacePath: ./PEMSD8.json
+useAnnotation: false
+tuner:
+    builtinTunerName: TPE
+    classArgs:
+      optimize_mode: minimize
+localConfig:
+    useActiveGpu: true
+    maxTrialNumPerGpu: 1
+trial:
+    command: python train_SSTBAN.py --config configurations/PEMSD8_1dim_12.conf
+    codeDir: ../../

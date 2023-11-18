@@ -1,0 +1,6 @@
+{
+    "combine_params": {
+        "_type": "choice",
+        "_value": [{"alpha":100, "learning_rate":1e-3, "hint_rate":0.1},{"alpha":100, "learning_rate":1e-3, "hint_rate":0.1},{"alpha":100, "learning_rate":1e-3, "hint_rate":0.1},{"alpha":100, "learning_rate":1e-3, "hint_rate":0.1},{"alpha":100, "learning_rate":1e-3, "hint_rate":0.1}]
+    }
+}

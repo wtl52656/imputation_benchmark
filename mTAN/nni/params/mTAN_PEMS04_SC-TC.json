@@ -1,0 +1,6 @@
+{
+    "rec_hidden": 32,
+    "gen-hidden": 64,
+    "enc-num-heads": 1,
+    "dec-num-heads": 1
+}

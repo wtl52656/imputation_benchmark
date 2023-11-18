@@ -1,0 +1,6 @@
+{
+  "hidden_dim": {"_type": "choice", "_value": [64,128,256,512]},
+  "learning_rate":{"_type": "choice", "_value": [1e-4,1e-5,1e-6]},
+  "K": {"_type": "choice", "_value": [1,2,3]},
+  "no_nm": {"_type": "choice", "_value": [[120,40],[80,80],[40,120],[225,75],[150,150],[75,225]]}
+}

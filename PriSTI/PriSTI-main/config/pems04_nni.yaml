@@ -1,0 +1,37 @@
+
+#type: args
+file:
+  data_prefix: "/mnt/nfs-storage/miss_data_ignnk/PEMS04/"
+  dataset: "pems04"
+  miss_rate: 0.1
+  miss_type: "SR-TR"
+
+train:
+  epochs: 100
+  batch_size: 16
+  lr: 1.0e-3
+  valid_epoch_interval: 20
+  is_lr_decay: true
+
+diffusion:
+  layers: 4
+  channels: 64    #
+  nheads: 8
+  diffusion_embedding_dim: 128
+  beta_start: 0.0001
+  beta_end: 0.2
+  num_steps: 50
+  schedule: "quad"
+  is_adp: true
+  proj_t: 64
+  is_cross_t: true
+  is_cross_s: true
+  adj_file: "/mnt/nfs-storage/data_ignnk/PEMS04/PEMS04.csv"
+
+model:
+  is_unconditional: 0
+  timeemb: 128
+  featureemb: 16
+  target_strategy: "hybrid"
+  use_guide: true
+  mask_sensor: []

@@ -1,0 +1,8 @@
+{
+  "featureemb": {"_type": "choice", "_value": [8,16,32]},
+  "layers":{"_type": "choice", "_value": [1,2,4]},
+  "channels":{"_type": "choice", "_value": [32,64,128]},
+  "diffusion_embedding_dim":{"_type": "choice", "_value": [32,64,128]},
+  "proj_t":{"_type": "choice", "_value": [32,64,128]},
+  "nheads":{"_type": "choice", "_value": [1,2,4,8]}
+}

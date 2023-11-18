@@ -1,0 +1,17 @@
+flask==1.1.2
+hdfs
+markdown==3.2.2
+nni==1.2
+numpy==1.19.1
+pandas==1.1.2
+scipy
+tables
+tensorboard==2.2.1
+tensorboardX
+xlrd==1.2.0
+dgl-cu101
+xgboost
+jupyter
+jupyter_contrib_nbextensions
+matplotlib
+gensim

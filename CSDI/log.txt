@@ -1,0 +1,75 @@
+[2023-09-26 10:30:43] INFO (numexpr.utils/MainThread) Note: NumExpr detected 64 cores but "NUMEXPR_MAX_THREADS" not set, so enforcing safe limit of 8.
+[2023-09-26 10:30:43] INFO (numexpr.utils/MainThread) NumExpr defaulting to 8 threads.
+Namespace(config='config/PEMS04.conf', modelpath='', targetstrategy='mix')
+Train Epoch:  0 Batch:  0 Loss:  2.0005438327789307
+Train Epoch:  0 Batch:  20 Loss:  1.8260717391967773
+Train Epoch:  0 Batch:  40 Loss:  1.8075437545776367
+Train Epoch:  0 Batch:  60 Loss:  1.6915792226791382
+Train Epoch:  0 Batch:  80 Loss:  1.5451319217681885
+Train Epoch:  0 Batch:  100 Loss:  1.5769636631011963
+Train Epoch:  0 Batch:  120 Loss:  1.5346492528915405
+Train Epoch:  0 Batch:  140 Loss:  1.427221655845642
+Train Epoch:  0 Batch:  160 Loss:  1.431284785270691
+Train Epoch:  0 Batch:  180 Loss:  1.3540399074554443
+Train Epoch:  0 Batch:  200 Loss:  1.390086054801941
+Train Epoch:  0 Batch:  220 Loss:  1.2604647874832153
+Train Epoch:  0 Batch:  240 Loss:  1.2879582643508911
+Train Epoch:  0 Batch:  260 Loss:  1.3754178285598755
+Train Epoch:  0 Batch:  280 Loss:  1.2537949085235596
+Train Epoch:  0 Batch:  300 Loss:  1.3227192163467407
+Train Epoch:  0 Batch:  320 Loss:  1.080322504043579
+Train Epoch:  0 Batch:  340 Loss:  1.013519525527954
+Train Epoch:  0 Batch:  360 Loss:  1.066236972808838
+Train Epoch:  0 Batch:  380 Loss:  1.0318399667739868
+Train Epoch:  0 Batch:  400 Loss:  1.1950011253356934
+Train Epoch:  0 Batch:  420 Loss:  0.9439944624900818
+Train Epoch:  0 Batch:  440 Loss:  1.2402894496917725
+Train Epoch:  0 Batch:  460 Loss:  1.09353506565094
+Train Epoch:  0 Batch:  480 Loss:  0.9741702079772949
+Train Epoch:  0 Batch:  500 Loss:  0.9743372797966003
+Train Epoch:  0 Batch:  520 Loss:  0.8944392204284668
+Train Epoch:  0 Batch:  540 Loss:  0.9250692129135132
+Train Epoch:  0 Batch:  560 Loss:  0.8478336930274963
+Train Epoch:  0 Batch:  580 Loss:  0.8352879285812378
+Train Epoch:  0 Batch:  600 Loss:  0.7981972694396973
+Train Epoch:  0 Batch:  620 Loss:  1.1490976810455322
+Train Epoch:  0 Batch:  640 Loss:  0.8652468919754028
+Train Epoch:  0 Batch:  660 Loss:  0.8742320537567139
+Train Epoch:  0 Batch:  680 Loss:  0.899121105670929
+Train Epoch:  0 Batch:  700 Loss:  0.8213883638381958
+Train Epoch:  0 Batch:  720 Loss:  0.7039365768432617
+Train Epoch:  0 Batch:  740 Loss:  0.9717515110969543
+Train Epoch:  0 Batch:  760 Loss:  0.6938040852546692
+Train Epoch:  0 Batch:  780 Loss:  0.6761881709098816
+Train Epoch:  0 Batch:  800 Loss:  0.6982706189155579
+Train Epoch:  0 Batch:  820 Loss:  0.7878929376602173
+Train Epoch:  0 Batch:  840 Loss:  0.833654522895813
+Train Epoch:  0 Batch:  860 Loss:  0.7007570862770081
+Train Epoch:  0 Batch:  880 Loss:  0.6634002923965454
+Train Epoch:  0 Batch:  900 Loss:  0.8508957624435425
+Train Epoch:  0 Batch:  920 Loss:  0.8798757791519165
+Train Epoch:  0 Batch:  940 Loss:  0.6857811808586121
+Train Epoch:  0 Batch:  960 Loss:  0.7472559213638306
+Train Epoch:  0 Batch:  980 Loss:  0.9615190029144287
+Train Epoch:  0 Batch:  1000 Loss:  0.7310660481452942
+Train Epoch:  0 Batch:  1020 Loss:  0.7850421667098999
+Train Epoch:  0 Batch:  1040 Loss:  0.5055645108222961
+Train Epoch:  0 Batch:  1060 Loss:  0.6451412439346313
+Train Epoch:  0 Batch:  1080 Loss:  0.569934606552124
+Train Epoch:  0 Batch:  1100 Loss:  0.7875195741653442
+Train Epoch:  0 Batch:  1120 Loss:  0.92452472448349
+Train Epoch:  0 Batch:  1140 Loss:  0.5283585786819458
+Train Epoch:  0 Batch:  1160 Loss:  0.6828331351280212
+Train Epoch:  0 Batch:  1180 Loss:  0.4822342097759247
+Train Epoch:  0 Batch:  1200 Loss:  0.44435960054397583
+Train Epoch:  0 Batch:  1220 Loss:  0.516308069229126
+Train Epoch:  0 Batch:  1240 Loss:  0.8638836145401001
+Train Epoch:  0 Batch:  1260 Loss:  1.090844750404358
+Training time: 218.95162510871887
+
+test batch: 0 / 424 completed 
+target: tensor([ 55.,  73., 142.,   9.,  27., 121.,  23.,  34.,  64.,  31.],
+       device='cuda:0') 
+imputation: tensor([-1.6913e+07, -1.0726e+06, -1.4656e+07, -1.8263e+07, -1.3711e+07,
+         1.0853e+04, -1.1208e+07,  2.3992e+02, -1.0508e+07, -1.8837e+07],
+       device='cuda:0')

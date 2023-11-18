@@ -1,0 +1,40 @@
+authorName: HuangYiheng1
+
+experimentName: BRITS_PEMS04_12_SR-TR_0.1
+#并发数
+trialConcurrency: 2
+#最大运行时间
+maxExecDuration: 400h
+#最大尝试次数
+maxTrialNum: 128
+nniManagerIp: 172.31.41.137
+# 可选项: local, remote, pai
+trainingServicePlatform: pai
+searchSpacePath: ./nni/params/BRITS_PEMS04_12.json
+
+useAnnotation: false
+tuner:
+    builtinTunerName: TPE
+    classArgs:
+    #maximize or minimize
+      optimize_mode: minimize
+
+trial:
+    #command: cd /mnt/nfs-storage2 #&& bash make.sh && cd .. && python3 train.py
+    command: python main.py --config configurations/PEMS04_12_SR-TR_0.1.conf
+    codeDir: ./
+    gpuNum: 1
+    cpuNum: 4
+    memoryMB: 30720
+    virtualCluster: vc1
+    image: a4-1:5000/wangxianglang/pytorch:1.10-cuda11.3
+    containerNFSMountPath: /mnt/nfs-storage/nni_experiment
+    nniManagerNFSMountPath: /mnt/nfsData17/HuangYiheng1/nni_experiment
+    paiStorageConfigName: nfs-storage
+    # shmMB:  40960
+
+paiConfig:
+    userName: HuangYiheng1
+
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikh1YW5nWWloZW5nMSIsImFwcGxpY2F0aW9uIjp0cnVlLCJqb2JTcGVjaWZpYyI6ZmFsc2UsImVuY29kZWRGcmFtZXdvcmtOYW1lIjoiIiwiaWF0IjoxNjYxNzc2NTU2fQ.RXSay4psIQZSuXjKzXJzeVkn56zwz3wO4P7m9677d3s
+    host: http://172.31.41.146/

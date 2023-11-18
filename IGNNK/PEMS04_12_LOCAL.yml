@@ -1,0 +1,31 @@
+authorName: HuangYiheng1
+
+experimentName: IGNNK_PEMS04_12_TEST
+#并发数
+trialConcurrency: 1
+#最大运行时间
+maxExecDuration: 400h
+#最大尝试次数
+maxTrialNum: 128
+nniManagerIp: 172.31.41.137
+# 可选项: local, remote, pai
+trainingServicePlatform: local
+searchSpacePath: ./nni/params/IGNNK_PEMS04_12.json
+
+useAnnotation: false
+tuner:
+    builtinTunerName: TPE
+    classArgs:
+    #maximize or minimize
+      optimize_mode: minimize
+
+trial:
+    #command: cd /mnt/nfs-storage2 #&& bash make.sh && cd .. && python3 train.py
+    command: python train.py --config configurations/PEMS04_nnitest.conf
+    codeDir: ./
+    gpuNum: 1
+
+localConfig:
+  maxTrialNumPerGpu:  2
+  useActiveGpu: true
+  gpuIndices: 1

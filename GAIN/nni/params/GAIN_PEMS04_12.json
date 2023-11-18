@@ -1,0 +1,5 @@
+{
+  "alpha": {"_type": "choice", "_value": [10,30,50,70,90,100]},
+  "learning_rate":{"_type": "choice", "_value": [1e-3,1e-4,1e-5]},
+  "hint_rate": {"_type": "choice", "_value": [0.1,0.3,0.5,0.7,0.9]}
+}

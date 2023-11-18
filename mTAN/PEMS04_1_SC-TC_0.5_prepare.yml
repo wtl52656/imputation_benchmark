@@ -1,0 +1,35 @@
+authorName: ChenRan1
+
+experimentName: mTAN_PEMS04_1_SC-TC_0.5
+trialConcurrency: 4
+maxExecDuration: 400h
+maxTrialNum: 81
+nniManagerIp: 172.31.41.139
+trainingServicePlatform: pai
+searchSpacePath: ./nni/params/mTAN_PEMS04_12.json
+
+useAnnotation: false
+tuner:
+    builtinTunerName: TPE
+    classArgs:
+      optimize_mode: minimize
+
+trial:
+    #command: cd /mnt/nfs-storage2 #&& bash make.sh && cd .. && python3 train.py
+    command: python train.py --config configurations/PEMS04_SC-TC_0.5.conf
+    codeDir: ./
+    gpuNum: 1
+    cpuNum: 4
+    memoryMB: 30720
+    virtualCluster: default
+    image: a4-1:5000/wangxianglang/pytorch:1.10-cuda11.3
+    containerNFSMountPath: /mnt/nfs-storage-node-19/nni_experiment
+    nniManagerNFSMountPath: /mnt/nfsData19/ChenRan1/nni_experiment
+    paiStorageConfigName: nfs-storage-node-19
+    # shmMB:  40960
+
+paiConfig:
+    userName: ChenRan1
+
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkNoZW5SYW4xIiwiYXBwbGljYXRpb24iOnRydWUsImpvYlNwZWNpZmljIjpmYWxzZSwiZW5jb2RlZEZyYW1ld29ya05hbWUiOiIiLCJpYXQiOjE2ODkwODg0OTd9.YA0zBMNrZE33YjaGQGXK_xWTp94UaLxu9SFCkstVSto
+    host: http://172.31.41.146/

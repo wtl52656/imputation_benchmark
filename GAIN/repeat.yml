@@ -1,0 +1,36 @@
+authorName: HuangYiheng1
+
+experimentName: repeat_GAIN_PEMS08_12_SC-TC_0.9
+trialConcurrency: 1
+maxExecDuration: 400h
+maxTrialNum: 5
+nniManagerIp: 172.31.41.137
+trainingServicePlatform: pai
+searchSpacePath: ./nni/params/repeat_SC-TC_0.9.json
+
+useAnnotation: false
+tuner:
+    builtinTunerName: BatchTuner
+    #classArgs:
+    #maximize or minimize
+      #optimize_mode: minimize
+
+trial:
+    #command: cd /mnt/nfs-storage2 #&& bash make.sh && cd .. && python3 train.py
+    command: python train.py --config configurations/PEMS08_SC-TC_0.9.conf
+    codeDir: ./
+    gpuNum: 1
+    cpuNum: 4
+    memoryMB: 30720
+    virtualCluster: default
+    image: a4-1:5000/wangxianglang/pytorch:1.10-cuda11.3
+    containerNFSMountPath: /mnt/nfs-storage/nni_experiments_gain
+    nniManagerNFSMountPath: /mnt/nfsData17/HuangYiheng1/nni_experiments_gain
+    paiStorageConfigName: nfs-storage
+    # shmMB:  40960
+
+paiConfig:
+    userName: HuangYiheng1
+
+    token: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikh1YW5nWWloZW5nMSIsImFwcGxpY2F0aW9uIjp0cnVlLCJqb2JTcGVjaWZpYyI6ZmFsc2UsImVuY29kZWRGcmFtZXdvcmtOYW1lIjoiIiwiaWF0IjoxNjcxMjA0NTE2fQ.FD81rpd_CeveWksQ84DPOMHMF9vUnlWkT8MAdfacrFo
+    host: http://172.31.41.146/

@@ -1,0 +1,8 @@
+{
+  "L": {"_type": "choice", "_value": [1,2,3]},
+  "K": {"_type": "choice", "_value": [16]},
+  "d": {"_type": "choice", "_value": [8]},
+  "T_miss_len":{"_type":"choice","_value": [1,2,3]},
+  "self_weight_dis":{"_type":"choice","_value": [0.05,0.3]},
+  "node_miss_rate":{"_type":"choice","_value": [0.1,0.3,0.5]}
+}
