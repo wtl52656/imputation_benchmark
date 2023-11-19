@@ -22,6 +22,19 @@ def mat2ten(mat, dim, mode):
 
 
 def svt_tnn(mat, tau, theta):
+    """
+    Singular Value Thresholding(svt)
+    Truncated Nuclear Norm(tnn)
+    
+    Parameters: 
+    mat  - numpy.array(m,n)
+    tau  - truncation value
+    theta  -  truncation factor
+    
+    Returns:
+    Completed MAT  -  numpy.array(m,n)
+    """
+    
     [m, n] = mat.shape
     if 2 * m < n:
         u, s, v = np.linalg.svd(mat @ mat.T, full_matrices=0)
@@ -78,6 +91,17 @@ from scipy.sparse.linalg import spsolve as spsolve
 
 
 def generate_Psi(dim_time, time_lags):
+    """
+    Generate the coefficient matrix for the autoregression
+    
+    Parameters: 
+    dim_time  - 
+    time_lags  - numpy.array(len) :: Autoregressive lag set
+    
+    Returns:
+    Psis  -  numpy.array(time_lags + 1 , dim_time - max_lag , dim_time) # Psis[lag,T_a,T_b] -> 
+    
+    """
     Psis = []
     max_lag = np.max(time_lags)
     for i in range(len(time_lags) + 1):
@@ -105,7 +129,24 @@ Psis = generate_Psi(dim_time, time_lags)
 
 def latc(dense_tensor, sparse_tensor, time_lags, alpha, rho0, lambda0, theta,
          epsilon=1e-4, maxiter=100, K=3):
-    """Low-Rank Autoregressive Tensor Completion (LATC)"""
+    """
+    Low-Rank Autoregressive Tensor Completion (LATC)
+    
+    Parameters: 
+    dense_tensor  - numpy.array(Node, points_per_day, days) :: Target Tensor
+    sparse_tensor  - numpy.array(Node, points_per_day, days) :: Tensor need to Complete (0 -> missing)
+    time_lags  -  numpy.array(len) :: Autoregressive lag set
+    alpha  -  non-negative weight parameters for each mode
+    rho0  -  learning rate of ADMM algorithm
+    lambda0  - λ0 = c0 · ρ with c0 being a constant determining the relative weight of time series regression
+    theta  -  truncation factor
+    epsilon  -  Epsilon of iteration stops
+    maxiter  -  Maximum Iterations
+    K  -  unfolding order
+    
+    Returns:
+    Completed Tensor  -  numpy.array(Node, points_per_day, days)
+    """
 
     dim = np.array(sparse_tensor.shape)
     dim_time = np.int32(np.prod(dim) / dim[0])

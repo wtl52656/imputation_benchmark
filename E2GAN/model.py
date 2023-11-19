@@ -18,6 +18,12 @@ class GRUI(nn.Module):
 
  
     def forward(self,belta,x,state=None):
+        """
+        :param x: Input data of shape (batch_size,  N*F)
+        :belta: Time decay coefficient (batch_size,  h_dim)
+        :state: Previous step state (batch_size,  h_dim)
+        :return: new_state (batch_size,  h_dim)
+        """
         if state is None:
             state = torch.zeros_like(belta)
         state = belta * state
@@ -43,15 +49,18 @@ class Generator_seq2z(nn.Module):
         self.grui_cell = GRUI(input_size,h_dim)
  
     def forward(self,x, noise, time_delta):
-
+        """
+        :param x: observable data of shape (batch_size, sample_len, N*F)
+        :noise: (batch_size, sample_len, N*F)
+        :time_delta:  (batch_size, sample_len, N*F)
+        :return: hidden state z (batch_size, z_dim)
+        """
         B,T,N = x.shape
 
         x = x + noise
 
         belta = self.belta_fc(time_delta)
         belta = torch.exp(-torch.maximum(torch.zeros_like(belta),belta))
-
-        
 
         state = None
 
@@ -82,7 +91,11 @@ class Generator_z2seq(nn.Module):
         self.z_dim = z_dim
  
     def forward(self,z,time_delta):
-
+        """
+        :param hidden state z (batch_size, z_dim)
+        :time_delta:  (batch_size, sample_len, N*F)
+        :return: Imputated results (batch_size, sample_len, N*F)
+        """
         x = self.z_fc(z)
 
         belta = self.belta_fc(time_delta)
@@ -113,6 +126,13 @@ class Generator(nn.Module):
         self.z2seq = Generator_z2seq(input_size,h_dim,z_dim,seq_len)
  
     def forward(self,x,m, noise, time_delta):
+        """
+        :param x: observable data of shape (batch_size, sample_len, N*F)
+        :m: mask matrix (batch_size, sample_len, N*F)
+        :noise: (batch_size, sample_len, N*F)
+        :time_delta:  (batch_size, sample_len, N*F)
+        :return: Imputated results (batch_size, sample_len, N*F)
+        """
         z = self.seq2z(x,noise,time_delta)
         imputated = self.z2seq(z,torch.ones_like(time_delta))
 
@@ -132,11 +152,15 @@ class Discriminator(nn.Module):
         self.grui_cell = GRUI(input_size,h_dim)
 
     def forward(self,x,time_delta):
-
+        """
+        :param x: Input data of shape (batch_size, sample_len, N*F)
+        :time_delta:  (batch_size, sample_len, N*F)
+        :return: Probability of data being true (batch_size, 1)
+        """
         B,T,N = x.shape
 
         belta = self.belta_fc(time_delta)
-        belta = torch.exp(-torch.maximum(torch.zeros_like(belta),belta))
+        belta = torch.exp(-torch.maximum(torch.zeros_like(belta),belta)) # Time decay coefficient
 
         state = None
         for i in range(T):

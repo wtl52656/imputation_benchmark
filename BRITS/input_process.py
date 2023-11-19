@@ -52,7 +52,7 @@ def parse_rec_test(values, masks, true_data, dir_):
 
     rec = {}
 
-    rec['values'] = np.nan_to_num(values).astype("float64").tolist() # nan值用0替换
+    rec['values'] = np.nan_to_num(values).astype("float64").tolist() # nan -> 0
     rec['masks'] = masks.astype('int32').tolist()
     # imputation ground-truth
     rec['true_data'] = true_data.astype("float64").tolist()

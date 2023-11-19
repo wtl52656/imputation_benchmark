@@ -50,10 +50,10 @@ def load_pems_data(true_datapath,miss_datapath, distance_df_filename, num_of_ver
     miss = np.load(miss_datapath)
     mask = miss['mask'].transpose(1, 0, 2)[:, :, 0]
     miss_data = miss['data'].transpose(1, 0, 2).astype(np.float32)[:, :, 0]
-    miss_data[np.isnan(miss_data)] = 0
+    miss_data[np.isnan(miss_data)] = 0 # nan -> 0
 
     true_data = np.load(true_datapath)['data'].transpose(1, 0, 2).astype(np.float32)[:, :, 0]
-    true_data[np.isnan(true_data)] = 0
+    true_data[np.isnan(true_data)] = 0 # nan -> 0
     
     A = get_adjacency_matrix(distance_df_filename, num_of_vertices)
 

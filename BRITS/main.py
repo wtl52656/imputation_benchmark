@@ -22,8 +22,6 @@ from sklearn.metrics import mean_absolute_error
 from sklearn.metrics import mean_squared_error
 from metrics import masked_mape_np
 
-# from ipdb import set_trace  # 没用到这个模块
-
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--for_test", type=int, default=0) # 调试模式：跑部分数据
@@ -262,7 +260,7 @@ def evaluate(model, val_iter, val_set=True, save=False):
 
 
 def run():
-    model = getattr(models,config['model']).Model(hid_size, attributes*nodes)  # 高级操作
+    model = getattr(models,config['model']).Model(hid_size, attributes*nodes)
     total_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
     print('Total params is {}'.format(total_params))
 

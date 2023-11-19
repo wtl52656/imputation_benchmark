@@ -20,7 +20,7 @@ import numpy as np
 import torch
 
 def get_sample_by_overlaped_Sliding_window(X, Y,  mask, sample_len):
-    #X,Y,mask: shape(T,N,1)
+    #X,Y,mask: shape(T,N,1) -> (B,sample_len,N,1)
     X_window,Y_window, mask_window = [], [], []
     for i in range(X.shape[0]-sample_len+1):
         X_window.append(X[i:i+sample_len])
@@ -45,6 +45,19 @@ def data_loader(X, Y,  mask, time_delta, batch_size, shuffle=True, drop_last=Tru
 
 
 def load_data (true_datapath,miss_datapath,val_ratio,test_ratio,batch_size,sample_len=12):
+    """
+    Load data / generate sample and time delta
+    time delta : Time delta between observable points
+    
+    Parameters: 
+    true_datapath  - path of ground-truth
+    miss_datapath  - path of the data with missing
+
+    Returns:
+
+    Sample shape:[Batch,sample_len,N*F]
+    input_size: N*F
+    """
     miss = np.load(miss_datapath)
     mask = miss['mask'][:, :, :1] 
     miss_data = miss['data'][:, :, :1]

@@ -50,7 +50,6 @@ def generate_samples_brits(true_data,masks,values,sample_len,test_ratio,val_rati
     data_num = true_data.shape[0]
 
     test_len = int(data_num * test_ratio)
-    # val_end_idx = int(test_end_idx + data_num * val_ratio)
     val_len = int(data_num * val_ratio)
 
     train_X, val_X, test_X = values[ :-(val_len+test_len)], \
@@ -68,24 +67,6 @@ def generate_samples_brits(true_data,masks,values,sample_len,test_ratio,val_rati
     training_set = get_sample_by_overlaped_Sliding_window_brits(train_Y,  train_mask, train_X, sample_len)
     valing_set= get_sample_by_overlaped_Sliding_window_brits(val_Y,  val_mask, val_X, sample_len)
     testing_set = get_sample_by_overlaped_Sliding_window_brits(test_Y, test_mask, test_X, sample_len)
-    # print(len(testing_set), testing_set[0])
-
-
-    # all_samples = get_sample_by_overlaped_Sliding_window_brits(true_data,masks,values,sample_len) # 滑窗
-    #all_samples = get_sample_by_unoverlaped_Sliding_window_brits(true_data,masks,values,sample_len) # 不滑窗
-    
-    import random
-    # random.shuffle(all_samples)
-
-    
-
-    # training_set = all_samples[:-(test_end_idx+val_end_idx)] 
-    # testing_set = all_samples[-test_end_idx:]
-    # valing_set = all_samples[-(val_end_idx+test_end_idx):-(test_end_idx)]
-
-    # training_set = all_samples[val_end_idx:] 
-    # testing_set = all_samples[:test_end_idx]
-    # valing_set = all_samples[test_end_idx:val_end_idx]
 
     return training_set, testing_set, valing_set
 

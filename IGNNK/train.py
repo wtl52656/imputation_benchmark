@@ -90,6 +90,10 @@ no_nm = no + nm
 
 
 def get_sample_by_overlaped_Sliding_window(X, Y, mask, sample_len=12):
+    """
+    Generate sample by slide window: (N,T,1) -> (Batch,N,window_size,1)
+
+    """
     #X,Y,mask: shape(N,T,1)
     X_window, Y_window, mask_window = [], [], []
     for i in range(X.shape[1]-sample_len+1):
@@ -113,6 +117,19 @@ def data_loader(X, Y, mask, batch_size, shuffle=True, drop_last=True):
     return dataloader
 
 def load_data(true_datapath,miss_datapath, distance_df_filename):
+    
+    """
+    Load data and generate sample
+    
+    Parameters: 
+    true_datapath  - path of ground-truth
+    miss_datapath  - path of the data with missing
+    distance_df_filename  -  path of adjacency matrix
+
+    Returns:
+    Completed Tensor  -  numpy.array(Node, points_per_day, days)
+    """
+
     # X, Y, mask: N x T x 1
     X, Y, mask, A_q, A_h = load_pems_data(true_datapath,miss_datapath, distance_df_filename,num_of_vertices)
 
@@ -181,6 +198,8 @@ if __name__ == "__main__":
     """
     Model training
     """
+
+    # Load ground-truth and the data with missing
     savepath = os.path.join(save_prefix, f"{config['train']['type']}_{config['train']['miss_rate']}")
     true_datapath = os.path.join(data_prefix,f"true_data_{config['train']['type']}_{config['train']['miss_rate']}_v2.npz")
     miss_datapath = os.path.join(data_prefix,f"miss_data_{config['train']['type']}_{config['train']['miss_rate']}_v2.npz")
@@ -207,7 +226,7 @@ if __name__ == "__main__":
         start = time.time()
         for batch_idx, (data, target,mask) in enumerate(train_loader):
 
-            know_mask = set(random.sample(range(0, data.shape[1]), no_nm))
+            know_mask = set(random.sample(range(0, data.shape[1]), no_nm)) # select subgraph
             
             inputs = data[:,list(know_mask)]/E_maxvalue
             labels = target[:,list(know_mask)]/E_maxvalue
@@ -215,8 +234,9 @@ if __name__ == "__main__":
 
             if (masks.sum() == 0):
                 continue
-
-            missing_index = torch.rand(size=(inputs.shape), dtype=torch.float32)
+            
+            # select missing node and visible node
+            missing_index = torch.rand(size=(inputs.shape), dtype=torch.float32) 
             missing_index = (missing_index > (nm/no_nm)).int().cuda()
             zeros = torch.zeros_like(inputs,dtype=torch.float32)
 
