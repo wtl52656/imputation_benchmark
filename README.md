@@ -3,7 +3,7 @@
 ## 1 Data
 We used **3** traffic datasets, **4** missing types, and **5** levels of missing rates
 
-$
+$$
 \begin{array}
 {cll}
 \hline
@@ -14,9 +14,9 @@ $
 	Seattle-speed & 8760    & 323 & 1hour &2015\\
 \hline	
 \end{array}
-$
+$$
 
-$
+$$
 \begin{array}
 {cll}
 \hline
@@ -28,7 +28,7 @@ $
 	SC-TC & spatial\ and\ temporal\ contineous\ random\ missing\\
 \hline	
 \end{array}
-$
+$$
 
 5 levels of missing rates : **10%**, **30%**, **50%**, **70%**, **90%**
 
