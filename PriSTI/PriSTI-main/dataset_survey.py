@@ -34,6 +34,18 @@ def sample_mask(shape, p=0.0015, p_noise=0.05, max_seq=1, min_seq=1, rng=None):
 class Survey_Dataset(Dataset):
     def __init__(self,true_data,ob_mask,gt_mask, c_data,val_start, test_start, eval_length=12, mode="train", missing_pattern='block',
                  is_interpolate=False, target_strategy='random', missing_ratio=None):
+        """
+        observed_mask,observed_data  - Data that can be seen throughout the process, 
+                                       from which a portion will be intercepted for input and evaluation
+
+        gt_mask  - The input part of the test set
+
+        cond_mask - The input part of the train and valid set
+
+        cut_length - The length of the truncation required to avoid repeating a evaluate for a given point in time.
+
+        coeffs - Results of linear interpolation
+        """
         self.eval_length = eval_length
         self.is_interpolate = is_interpolate
         self.target_strategy = target_strategy
@@ -50,6 +62,8 @@ class Survey_Dataset(Dataset):
             self.gt_mask = gt_mask[val_start: test_start]
             self.observed_data = c_data[val_start: test_start]
         elif mode == 'test':
+            # The test set does not need to be constructed condition mask
+            # and the remaining miss values are interpolated directly using our constructed data
             self.observed_mask = np.ones_like(ob_mask[test_start:])
             self.gt_mask = ob_mask[test_start:]
             self.observed_data = true_data[test_start:]
@@ -92,6 +106,16 @@ class Survey_Dataset(Dataset):
 
 def get_dataloader(batch_size, device, val_len=0.2, test_len=0.2, missing_pattern='block',
                    is_interpolate=False, num_workers=4, target_strategy='random',data_prefix='',miss_type='SR-TR',miss_rate=0.1):
+    """
+    generate sample and split data for train,valid,test
+    
+    Parameters: 
+    is_interpolate  - Whether to do linear interpolation
+    target_strategy  - strategy of conditional mask
+    
+    Returns:
+    Completed Tensor  -  numpy.array(Node, points_per_day, days)
+    """
     
     true_datapath = os.path.join(data_prefix,f"true_data_{miss_type}_{miss_rate}_v2.npz")
     miss_datapath = os.path.join(data_prefix,f"miss_data_{miss_type}_{miss_rate}_v2.npz")
@@ -118,7 +142,13 @@ def get_dataloader(batch_size, device, val_len=0.2, test_len=0.2, missing_patter
     elif missing_pattern == 'point':
         eval_mask = sample_mask(shape=(T, N), p=0., p_noise=0.25, min_seq=3, max_seq=12)
 
-    gt_mask = (1-(eval_mask | (1-ob_mask))).astype('uint8')
+
+    gt_mask = (1-(eval_mask | (1-ob_mask))).astype('uint8') 
+    # Selected portions from the observables are used for model input, interpolating the remaining unselected.
+    # Similar to the condition mask used in training
+    # Since on the test set we have already constructed the region to be interpolated, this line of code is of no practical use
+
+
 
     val_start = int((1 - val_len - test_len) * T)
     test_start = int((1 - test_len) * T)

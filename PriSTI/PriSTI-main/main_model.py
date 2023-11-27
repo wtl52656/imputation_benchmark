@@ -104,6 +104,7 @@ class PriSTI(nn.Module):
         return loss
 
     def set_input_to_diffmodel(self, noisy_data, observed_data, cond_mask):
+        # combine the noisy_data and observed_data
         if self.is_unconditional == True:
             total_input = noisy_data.unsqueeze(1)
         else:
@@ -133,6 +134,7 @@ class PriSTI(nn.Module):
             current_sample = torch.randn_like(observed_data)
 
             for t in range(self.num_steps - 1, -1, -1):
+                # denosie phase
                 if self.is_unconditional == True:
                     diff_input = cond_mask * noisy_cond_history[t] + (1.0 - cond_mask) * current_sample
                     diff_input = diff_input.unsqueeze(1)  # (B,1,K,L)
