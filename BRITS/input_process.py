@@ -34,7 +34,8 @@ mean = np.zeros((attributes,))
 std = np.zeros((attributes,))
 
 def parse_delta(masks, dir_):  # time gaps
-
+    # masks:(seq_len,N*F) 
+    # return: deltas(seq_len,N*F) 
     deltas = []
 
     for time_step in range(0, seq_len):  # 递推
@@ -48,6 +49,10 @@ def parse_delta(masks, dir_):  # time gaps
 
 
 def parse_rec_test(values, masks, true_data, dir_):
+    # masks:(seq_len,N*F) 
+    # values:(seq_len,N*F)
+    # true_dta:(seq_len,N*F)
+    # return: dict
     deltas = parse_delta(masks, dir_)
 
     rec = {}

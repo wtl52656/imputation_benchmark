@@ -25,6 +25,8 @@ class FeatureRegression(nn.Module):
         self.W = Parameter(torch.Tensor(input_size, input_size))
         self.b = Parameter(torch.Tensor(input_size))
 
+        # Matrix with 0 on the diagonal and 1 at other positions
+        # Used to consider only the effects of other features
         m = torch.ones(input_size, input_size) - torch.eye(input_size, input_size)  # 对角线为0，其他位置为1的矩阵
         self.register_buffer('m', m)
 
@@ -37,6 +39,9 @@ class FeatureRegression(nn.Module):
             self.b.data.uniform_(-stdv, stdv)
 
     def forward(self, x):
+        # x:(B,seq_len,input_size)
+        # return: z_h:(B,seq_len,input_size)
+
         # print("before z_h: ", x, self.W, self.m, self.b)
         z_h = F.linear(x, self.W * Variable(self.m), self.b)  # 自定义线性变换
         return z_h
@@ -66,6 +71,10 @@ class TemporalDecay(nn.Module):  # represent missing patterns
             self.b.data.uniform_(-stdv, stdv)
 
     def forward(self, d):
+        # x:(B,seq_len,input_size)
+        # return: gamma:(B,seq_len,output_size)
+        "time decay factor"
+
         if self.diag == True:
             gamma = F.relu(F.linear(d, self.W * Variable(self.m), self.b))  # self.W * Variable(self.m)意义何在？-> 只考虑自身维度的缺失模式！
         else:
@@ -88,8 +97,8 @@ class Model(nn.Module):
         self.temp_decay_h = TemporalDecay(input_size = self.attributes, output_size = self.rnn_hid_size, diag = False)
         self.temp_decay_x = TemporalDecay(input_size = self.attributes, output_size = self.attributes, diag = True)
 
-        self.hist_reg = nn.Linear(self.rnn_hid_size, self.attributes)
-        self.feat_reg = FeatureRegression(self.attributes)
+        self.hist_reg = nn.Linear(self.rnn_hid_size, self.attributes) #Interpolation based on historical values
+        self.feat_reg = FeatureRegression(self.attributes)            #Interpolation based on other features
 
         self.weight_combine = nn.Linear(self.attributes * 2, self.attributes)
 
@@ -125,23 +134,23 @@ class Model(nn.Module):
             gamma_x = self.temp_decay_x(d)
             #print("gamma_x_test:",gamma_x)
 
-            h = h * gamma_h # 乘以延迟因子！
+            h = h * gamma_h # 乘以延迟因子！Multiply by the decay factor
 
-            x_h = self.hist_reg(h)
+            x_h = self.hist_reg(h) #Interpolation based on historical values
             if torch.sum(m) != 0:
                 x_loss += torch.sum(torch.abs(x - x_h) * m) / torch.sum(m)
 
             x_c =  m * x +  (1 - m) * x_h
 
-            z_h = self.feat_reg(x_c) # 特征维度唯一，z_h就没有意义了！ 只有bias了
+            z_h = self.feat_reg(x_c) # Interpolation based on other features
             #print("z_h: ", z_h.shape, z_h)
             if torch.sum(m) != 0:
                 x_loss += torch.sum(torch.abs(x - z_h) * m) / torch.sum(m)
 
-            alpha = self.weight_combine(torch.cat([gamma_x, m], dim = 1))
+            alpha = self.weight_combine(torch.cat([gamma_x, m], dim = 1)) #the factor of combine z_h and x_h
             #print("alpha_test:",alpha)
 
-            c_h = alpha * z_h + (1 - alpha) * x_h
+            c_h = alpha * z_h + (1 - alpha) * x_h # imputate of missing position only
             #print("c_h_test:",c_h)
             if torch.sum(m):
                 x_loss += torch.sum(torch.abs(x - c_h) * m) / torch.sum(m)
