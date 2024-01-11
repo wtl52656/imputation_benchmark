@@ -1,0 +1,4 @@
+{
+  "num_layers": {"_type": "choice", "_value": [3,4]},
+  "smooth_layer_num": {"_type": "choice", "_value": [0,1]}
+}

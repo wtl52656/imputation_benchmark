@@ -368,7 +368,7 @@ test_mae, test_rmse, test_mape = sstban_utils.mae_rmse_mape(testPred, testLabel,
 
 
 if use_nni:
-    nni.report_final_result(test_mae)
+    nni.report_final_result(val_mae)
 print('testing time: %.1fs' % (end_test - start_test))
 
 

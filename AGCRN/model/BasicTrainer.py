@@ -156,7 +156,10 @@ class Trainer(object):
         #test
         self.model.load_state_dict(best_model)
         #self.val_epoch(self.args.epochs, self.test_loader)
-        self.test(self.model, self.args, self.test_loader, self.scaler, self.logger,self.args.use_nni)
+        self.test(self.model, self.args, self.test_loader, self.scaler, self.logger)
+
+        if self.args.use_nni:
+            nni.report_final_result(best_loss.item())
 
     def save_checkpoint(self):
         state = {
@@ -197,8 +200,6 @@ class Trainer(object):
         mae, rmse, mape, _, _ = All_Metrics(y_pred, y_true, args.mae_thresh, args.mape_thresh)
         logger.info("Average Horizon, MAE: {:.2f}, RMSE: {:.2f}, MAPE: {:.4f}%".format(
                     mae, rmse, mape*100))
-        if use_nni:
-            nni.report_final_result(mae.item())
 
     @staticmethod
     def _compute_sampling_threshold(global_step, k):

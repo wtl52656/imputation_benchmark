@@ -228,6 +228,7 @@ def read_and_generate_dataset_encoder_decoder(all_datapath,true_datapath,miss_da
             sample)  # sampe：[(week_sample),(day_sample),(hour_sample),target,mask,time_sample] = [(1,N,F,Tw),(1,N,F,Td),(1,N,F,Th),(1,N,Tpre),(1,1)]
 
     test_samples = []
+    data_seq = data_seq[int(len(data_seq)*0.8):]
     num_of_series = int (data_seq.shape[0] / 12)
     for i in range(num_of_series):
         test_idx = (i) * 12
@@ -266,7 +267,7 @@ def read_and_generate_dataset_encoder_decoder(all_datapath,true_datapath,miss_da
     training_set = [np.concatenate(i, axis=0)
                     for i in zip(*all_samples[:split_line2])]  # [(B,N,F,Tw),(B,N,F,Td),(B,N,F,Th),(B,N,Tpre),(B,1)]
     validation_set = [np.concatenate(i, axis=0)
-                      for i in zip(*all_samples[split_line2:])]
+                      for i in zip(*all_samples[split_line1:split_line2:])]
     testing_set = [np.concatenate(i, axis=0)
                    for i in zip(*test_samples)]
 

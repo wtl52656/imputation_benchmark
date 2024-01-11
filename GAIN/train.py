@@ -168,7 +168,7 @@ def train (train_loader,val_loader,test_loader):
     print(f"test_time: {test_time.__format__('.6f')}\ttrain_time: {train_time.__format__('.6f')}")
 
     if use_nni:
-        nni.report_final_result(test_mae.cpu().numpy().item())
+        nni.report_final_result(best_mae.cpu().numpy().item())
 
 
 if __name__ == '__main__':
