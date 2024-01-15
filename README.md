@@ -125,3 +125,10 @@ python exe_survey.py --config xxx.conf
 cd SSTBAN/SSTBAN-imputation
 python train_SSTBAN.py.py --config xxx.conf
 ```
+
+### ASTGNN
+
+``` bash
+cd ASTGNN
+python train_ASTGNN.py.py --config xxx.conf
+```
