@@ -82,8 +82,6 @@ def main(args):
         mean_scaler=mean_scaler,
         foldername=foldername,
     )
-    if config['train']['nni']:
-        nni.report_final_result(test_mae)
 
 
 if __name__ == '__main__':

@@ -84,7 +84,8 @@ def train(
                 nni.report_intermediate_result(avg_loss_valid)
     if foldername != "":
         torch.save(model.state_dict(), output_path)
-
+    if use_nni:
+        nni.report_final_result(best_valid_loss)
 
 def quantile_loss(target, forecast, q: float, eval_points) -> float:
     return 2 * torch.sum(
