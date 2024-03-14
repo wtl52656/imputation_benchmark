@@ -143,6 +143,7 @@ def cal_timedelta(mask):
     ancher = torch.zeros_like(mask[...,0])
     for g in range(seq_len):
         ancher += (mask[...,g]==0)
+        ancher *= (mask[...,g]==0)
         delta[...,g] = ancher
     return delta
 
