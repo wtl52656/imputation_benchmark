@@ -1,0 +1,11 @@
+n_layers : 3
+d_input_embed : 32
+d_learnable_embed : 96
+d_proj : 8
+d_ffn : 256
+n_temporal_heads : 4
+dropout : 0.1
+input_dim : 1
+output_dim : 1
+epochs : 300
+patience : 20

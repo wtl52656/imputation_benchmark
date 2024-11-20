@@ -1,5 +1,10 @@
 # imputation_benchmark
 
+### The official implementation of “An Experimental Evaluation of Imputation Models
+for Spatial-Temporal Traffic Data”
+
+![pipeline](./assets/pipeline_1.svg)
+
 ## 1 Data
 We used **3** traffic datasets, **4** missing types, and **5** levels of missing rates
 
@@ -132,3 +137,11 @@ python train_SSTBAN.py.py --config ./configurations/PEMS04.conf
 cd ASTGNN
 python train_ASTGNN.py.py --config ./configurations/PEMS04_SR-TC_70.conf
 ```
+
+### ImputeFormer
+
+``` bash
+cd imputeformer
+python main.py.py --config ./configurations/PEMS04.yaml --data_prefix ./miss_data --dataset PEMS04 --miss_type SR-TR --miss_rate 0.9
+```
+
