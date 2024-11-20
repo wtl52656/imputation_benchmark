@@ -1,8 +1,6 @@
 # imputation_benchmark
 
-### The official implementation of “An Experimental Evaluation of Imputation Models
-for Spatial-Temporal Traffic Data”
-
+### The official implementation of “An Experimental Evaluation of Imputation Models for Spatial-Temporal Traffic Data”
 ![pipeline](./assets/pipeline_1.svg)
 
 ## 1 Data
