@@ -122,13 +122,6 @@ cd PriSTI/PriSTI-main
 python exe_survey.py --config ./config/pems04.yaml
 ```
 
-### SSTBAN
-
-``` bash
-cd SSTBAN/SSTBAN-imputation
-python train_SSTBAN.py.py --config ./configurations/PEMS04.conf
-```
-
 ### ASTGNN
 
 ``` bash
