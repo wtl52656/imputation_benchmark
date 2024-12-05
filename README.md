@@ -1,6 +1,6 @@
 # imputation_benchmark
 
-### The official implementation of “An Experimental Evaluation of Imputation Models for Spatial-Temporal Traffic Data”
+The official implementation of “An Experimental Evaluation of Imputation Models for Spatial-Temporal Traffic Data”
 
 ![pipeline](./assets/pipeline.png)
 
@@ -12,7 +12,7 @@ $$
 \begin{array}
 {cll}
 \hline
-	\text{Dataset} & \text{\# Time points} & \text{\# Nodes} & \text{Time Interval} & \text{Time range} \\
+	\text{Dataset} & \text{Time points} & \text{Nodes} & \text{Time Interval} & \text{Time range} \\
 \hline
 	\text{PEMS04} & 16692    & 307 & 5\text{mins} &2018.1.1-2018.2.28\\
 	\text{PEMS08} & 17856    & 170 & 5\text{mins} &2016.7.1-2016.8.31\\
@@ -39,7 +39,7 @@ Missing rates including **10%**, **30%**, **50%**, **70%**, **90%**
 
 ---
 
-We have summaries existing imputation models from 2018-2024.![pipeline](./assets/summary_imputation_model.png)
+We have summaries of existing imputation models from 2018-2024.![pipeline](./assets/Summary_imputation_model.png)
 
 
 
